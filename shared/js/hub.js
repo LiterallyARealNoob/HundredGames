@@ -28,10 +28,10 @@ function unlockAudio() {
     .then(() => debugLog('✅ bg-wind playing'))
     .catch(err => debugLog('❌ bg-wind failed: ' + err.name + ' - ' + err.message));
 
-  window.removeEventListener('pointerdown', unlockAudio);
+  window.removeEventListener('pointerup', unlockAudio);
   window.removeEventListener('keydown', unlockAudio);
 }
-window.addEventListener('pointerdown', unlockAudio);
+window.addEventListener('pointerup', unlockAudio);
 window.addEventListener('keydown', unlockAudio);
 
 // Extra diagnostics: tells you immediately if a file 404s or won't decode
