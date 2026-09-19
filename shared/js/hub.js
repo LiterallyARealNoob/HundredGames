@@ -32,11 +32,11 @@ const SELECTION_VOLUME = 0.3;
 const UNIQUE_VOLUME    = 0.28;
 
 const uniqueSoundFiles = {
-  profile:  'shared/assets/audio/profilebutton.mp3',
-  play:     'shared/assets/audio/playbutton.mp3',
-  credits:  'shared/assets/audio/creditsbutton.mp3',
-  settings: 'shared/assets/audio/settingsbutton.mp3',
-  quit:     'shared/assets/audio/quitbutton.mp3',
+  profile:  'shared/assets/audio/profile-button.mp3',
+  play:     'shared/assets/audio/play-button.mp3',
+  credits:  'shared/assets/audio/credits-button.mp3',
+  settings: 'shared/assets/audio/settings-button.mp3',
+  quit:     'shared/assets/audio/quit-button.mp3',
 };
 
 function playSound(src, volume) {
