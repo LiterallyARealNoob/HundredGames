@@ -1,0 +1,171 @@
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+body{
+  background:#000;
+  overflow:hidden;
+}
+
+.scene{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+}
+
+.bg-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  z-index:0;
+}
+
+/* --- button glow overlays ---
+   Each PNG is the SAME full-canvas size as bg-image.png, just with
+   only that one button drawn in (rest transparent). Using the exact
+   same sizing as bg-image guarantees perfect alignment, no math needed. */
+.btn-overlay{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  opacity:0;
+  pointer-events:none;
+  z-index:1;
+  transition:opacity .12s ease;
+}
+
+.btn-overlay.active{
+  opacity:1;
+}
+
+/* --- wind streaks: fast, faint curved lines suggesting moving air --- */
+.wind-streaks{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.streak{
+  position:absolute;
+  width:140px;
+  height:14px;
+  opacity:0;
+}
+
+.streak path{
+  fill:none;
+  stroke:rgba(255,255,255,.25);
+  stroke-width:1.5;
+  stroke-linecap:round;
+}
+
+/* timed just slightly before their matching leaf gust, so the air
+   "arrives" a beat before the leaf it's carrying */
+.streak-1{ top:19%; animation:streak-move 9s infinite; animation-delay:-0.4s; }
+.streak-2{ top:44%; animation:streak-move 12s infinite; animation-delay:2.1s; }
+.streak-3{ top:64%; animation:streak-move 10.5s infinite; animation-delay:4.6s; }
+
+@keyframes streak-move{
+  0%   { transform:translateX(-20vw) scaleX(.8); opacity:0; }
+  6%   { opacity:.5; }
+  18%  { transform:translateX(60vw) scaleX(1.3);  opacity:.35; }
+  30%  { transform:translateX(130vw) scaleX(1.6); opacity:0; }
+  100% { transform:translateX(130vw) scaleX(1.6); opacity:0; }
+}
+
+/* --- wind gust: SVG leaves drifting across the screen --- */
+.wind-leaves{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.leaf{
+  position:absolute;
+  width:14px;
+  height:14px;
+  top:-5%;
+  left:-10%;
+  fill:#8a6a3a;
+  opacity:0;
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
+}
+
+.leaf .vein{
+  fill:none;
+  stroke:#5c4726;
+  stroke-width:1;
+  opacity:.6;
+}
+
+/* each leaf gets its own path/speed/timing so they don't move in sync */
+.leaf-1{ top:20%; width:12px; height:12px; fill:#9c7a42; animation:gust1 9s infinite; animation-delay:0s; }
+.leaf-2{ top:45%; width:16px; height:16px; fill:#7a8a4a; animation:gust2 12s infinite; animation-delay:2.5s; }
+.leaf-3{ top:65%; width:10px; height:10px; fill:#8a6a3a; animation:gust1 10.5s infinite; animation-delay:5s; }
+.leaf-4{ top:30%; width:13px; height:13px; fill:#a9834a; animation:gust2 8.5s infinite; animation-delay:1s; }
+.leaf-5{ top:75%; width:11px; height:11px; fill:#6f7d3f; animation:gust1 11s infinite; animation-delay:7s; }
+
+/* path A: drifts across with a gentle up-down sway and slow tumble */
+@keyframes gust1{
+  0%   { transform:translate(-10vw, 0)    rotate(0deg);   opacity:0; }
+  8%   { opacity:.85; }
+  30%  { transform:translate(35vw, -4vh)  rotate(120deg); }
+  55%  { transform:translate(70vw, 3vh)   rotate(250deg); }
+  80%  { transform:translate(100vw, -2vh) rotate(340deg); }
+  92%  { opacity:.85; }
+  100% { transform:translate(115vw, 0)    rotate(400deg); opacity:0; }
+}
+
+/* path B: slightly different sway/tumble rhythm for variety */
+@keyframes gust2{
+  0%   { transform:translate(-10vw, 0)    rotate(10deg);  opacity:0; }
+  10%  { opacity:.8; }
+  35%  { transform:translate(40vw, 4vh)   rotate(-140deg); }
+  60%  { transform:translate(75vw, -3vh)  rotate(-260deg); }
+  85%  { transform:translate(105vw, 2vh)  rotate(-380deg); }
+  94%  { opacity:.8; }
+  100% { transform:translate(120vw, 0vh)  rotate(-420deg); opacity:0; }
+}
+@keyframes flicker{
+  0%, 100%{ opacity:.9; }
+  45%{ opacity:.6; }
+  50%{ opacity:.8; }
+  70%{ opacity:.5; }
+  75%{ opacity:.9; }
+}
+
+/* --- invisible clickable zones, exactly matching each button ---
+   No visible background at all, in any state. */
+.hotspots{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+}
+
+.hotspot{
+  position:absolute;
+  left:20.83%;
+  width:61.07%;
+  height:4.36%;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  pointer-events:auto;
+  -webkit-tap-highlight-color:transparent;  /* kills the blue flash on mobile tap */
+  outline:none;
+  /* uncomment while lining up positions, then comment back out:
+  background:rgba(255,0,0,.25);
+  */
+}

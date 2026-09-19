@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HundredGames</title>
+<link rel="stylesheet" href="shared/css/hub.css">
+</head>
+<body>
+
+  <div class="scene">
+    <!-- base artwork -->
+    <img class="bg-image" src="shared/assets/images/bg-image.png" alt="HundredGames menu background">
+
+    <!-- glowing "selected" versions, hidden until hovered/tapped -->
+    <img class="btn-overlay" data-for="profile"  src="shared/assets/images/bg-profile.png"  alt="">
+    <img class="btn-overlay" data-for="play"     src="shared/assets/images/bg-play.png"     alt="">
+    <img class="btn-overlay" data-for="credits"  src="shared/assets/images/bg-credits.png"  alt="">
+    <img class="btn-overlay" data-for="settings" src="shared/assets/images/bg-settings.png" alt="">
+    <img class="btn-overlay" data-for="quit"     src="shared/assets/images/bg-quit.png"     alt="">
+
+    <!-- lantern glow, positioned over the lantern in the art -->
+    <div class="lantern"></div>
+
+    <!-- wind gust: a handful of SVG leaves drifting across at staggered times -->
+    <div class="wind-leaves">
+      <svg class="leaf leaf-1" viewBox="0 0 24 24"><path d="M12 2C6 6 4 12 12 22C20 12 18 6 12 2Z"/><path class="vein" d="M12 4V20"/></svg>
+      <svg class="leaf leaf-2" viewBox="0 0 24 24"><path d="M12 2C6 6 4 12 12 22C20 12 18 6 12 2Z"/><path class="vein" d="M12 4V20"/></svg>
+      <svg class="leaf leaf-3" viewBox="0 0 24 24"><path d="M12 2C6 6 4 12 12 22C20 12 18 6 12 2Z"/><path class="vein" d="M12 4V20"/></svg>
+      <svg class="leaf leaf-4" viewBox="0 0 24 24"><path d="M12 2C6 6 4 12 12 22C20 12 18 6 12 2Z"/><path class="vein" d="M12 4V20"/></svg>
+      <svg class="leaf leaf-5" viewBox="0 0 24 24"><path d="M12 2C6 6 4 12 12 22C20 12 18 6 12 2Z"/><path class="vein" d="M12 4V20"/></svg>
+    </div>
+
+    <!-- wind streaks: fast curved lines suggesting moving air, timed with the leaf gusts -->
+    <div class="wind-streaks">
+      <svg class="streak streak-1" viewBox="0 0 200 20"><path d="M0 10 Q50 0 100 10 T200 10"/></svg>
+      <svg class="streak streak-2" viewBox="0 0 200 20"><path d="M0 10 Q50 0 100 10 T200 10"/></svg>
+      <svg class="streak streak-3" viewBox="0 0 200 20"><path d="M0 10 Q50 0 100 10 T200 10"/></svg>
+    </div>
+
+    <!-- ambient audio loops, volume is set/controlled in hub.js -->
+    <audio id="bg-music" src="shared/assets/audio/fantasymusic.mp3" loop preload="auto"></audio>
+    <audio id="bg-wind"  src="shared/assets/audio/mainbg-wind.mp3"  loop preload="auto"></audio>
+
+    <!-- invisible clickable zones lined up exactly on top of each drawn button -->
+    <div class="hotspots">
+      <button class="hotspot" style="top:52.98%;" data-action="profile"  aria-label="Profile"></button>
+      <button class="hotspot" style="top:59.88%;" data-action="play"     aria-label="Play"></button>
+      <button class="hotspot" style="top:66.64%;" data-action="credits"  aria-label="Credits"></button>
+      <button class="hotspot" style="top:73.62%;" data-action="settings" aria-label="Settings"></button>
+      <button class="hotspot" style="top:80.60%;" data-action="quit"     aria-label="Quit"></button>
+    </div>
+  </div>
+
+  <script src="shared/js/hub.js"></script>
+</body>
+</html>
