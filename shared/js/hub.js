@@ -2,19 +2,31 @@
 const bgMusic = document.getElementById('bg-music');
 const bgWind  = document.getElementById('bg-wind');
 
+// --- On-screen debug log (so you can see errors on your phone, no dev tools needed) ---
+const debugBox = document.createElement('div');
+debugBox.style.cssText = 'position:fixed;bottom:0;left:0;right:0;max-height:40vh;overflow-y:auto;background:rgba(0,0,0,.85);color:#0f0;font:10px monospace;padding:8px;z-index:9999;white-space:pre-wrap;';
+document.body.appendChild(debugBox);
+function debugLog(msg) {
+  const line = document.createElement('div');
+  line.textContent = msg;
+  debugBox.appendChild(line);
+}
+
 bgMusic.volume = 0.25;  // quiet, sits behind everything
 bgWind.volume  = 0.18;  // just a light ambient layer
 
 // Browsers block audio with sound until the user interacts with the page,
 // so we start both loops on the very first tap/click/keypress anywhere.
 function unlockAudio() {
+  debugLog('tap detected, trying to play audio...');
+
   bgMusic.play()
-    .then(() => console.log('bg-music playing'))
-    .catch(err => console.error('bg-music failed:', err));
+    .then(() => debugLog('✅ bg-music playing'))
+    .catch(err => debugLog('❌ bg-music failed: ' + err.name + ' - ' + err.message));
 
   bgWind.play()
-    .then(() => console.log('bg-wind playing'))
-    .catch(err => console.error('bg-wind failed:', err));
+    .then(() => debugLog('✅ bg-wind playing'))
+    .catch(err => debugLog('❌ bg-wind failed: ' + err.name + ' - ' + err.message));
 
   window.removeEventListener('pointerdown', unlockAudio);
   window.removeEventListener('keydown', unlockAudio);
@@ -23,8 +35,8 @@ window.addEventListener('pointerdown', unlockAudio);
 window.addEventListener('keydown', unlockAudio);
 
 // Extra diagnostics: tells you immediately if a file 404s or won't decode
-bgMusic.addEventListener('error', () => console.error('bg-music failed to load — check the file path/name'));
-bgWind.addEventListener('error',  () => console.error('bg-wind failed to load — check the file path/name'));
+bgMusic.addEventListener('error', () => debugLog('❌ bg-music failed to LOAD — check file path/name'));
+bgWind.addEventListener('error',  () => debugLog('❌ bg-wind failed to LOAD — check file path/name'));
 
 // ---------- Button sounds ----------
 // One shared "selection" click, plus a unique sound per button, played together.
