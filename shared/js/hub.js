@@ -70,7 +70,7 @@ document.querySelectorAll('.hotspot').forEach(btn => {
 function runAction(action) {
   switch (action) {
     case 'play':
-      window.location.href = 'games/memory-match/index.html';
+      window.location.href = 'cutscene/index.html';
       break;
     case 'profile':
       console.log('Profile screen not built yet');
